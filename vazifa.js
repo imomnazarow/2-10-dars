@@ -309,37 +309,87 @@ console.log(digitSum(1234));
 // protcentlarining o'rtacha qiymatini toping. (reduce)
 // Pupils massividagi ojectlarga quyidagi propertylarni qo'shib
 // yangi massiv qaytaring. (map)
+let pupils = [
+  {
+    name: "Elbek",
+    protcent: 95,
+  },
+  {
+    name: "Zafar",
+    protcent: 78,
+  },
+  {
+    name: "Aziz",
+    protcent: 83,
+  },
+  {
+    name: "Jasur",
+    protcent: 88,
+  },
+  {
+    name: "Bobur",
+    protcent: 66,
+  },
+  {
+    name: "Kamron",
+    protcent: 75,
+  },
+];
+let jami = pupils.reduce((sum, pupil) => {
+  return sum + pupil.protcent;
+}, 0);
+let ortacha = jami / pupils.length;
+
+console.log(ortacha);
+
 // 23. grade propertyga protcent 90-100 o'rtasida bo'lsa 5, 80-90
 // o'rtasida bo'lsa 4, 70-80 o'rtasida bo'lsa 3 bahoni, qolgan
 // holatlarda 2 bahoni o'zlashtiring.(map)
+let newPupils = pupils.map((pupil) => {
+  let grade;
+
+  if (pupil.protcent >= 90) {
+    grade = 5;
+  } else if (pupil.protcent >= 80) {
+    grade = 4;
+  } else if (pupil.protcent >= 70) {
+    grade = 3;
+  } else {
+    grade = 2;
+  }
+
+  return {
+    ...pupil,
+    grade: grade,
+  };
+});
+
+console.log(newPupils);
 // 24. isPassed propertyga protcent 70 dan o'tsa true, aks holda
 // false qiymat o'zlashtirilsin. (map)
+let newOquvchilar = pupils.map((pupil) => {
+  return {
+    ...pupil,
+    isPassed: pupil.protcent >= 70,
+  };
+});
+
+console.log(newOquvchilar);
+
 // 25. Necha kishi imtihondan o'tdi va necha kishi imtihonda o'ta
 // olmadi shuni ham hisoblang. (reduce)
-// const pupils = [
-// {
-// name: "Elbek",
-// protcent: 95,
-// },
-// {
-// name: "Zafar",
-// Abdulaziz Programmer
-// protcent: 78,
-// },
-// {
-// name: "Aziz",
-// protcent: 83,
-// },
-// {
-// name: "Jasur",
-// protcent: 88,
-// },
-// {
-// name: "Bobur",
-// protcent: 66,
-// },
-// {
-// name: "Kamron",
-// protcent: 75,
-// },
-// ];
+
+let result25 = pupils.reduce(
+  (acc, pupil) => {
+    if (pupil.protcent >= 70) {
+      acc.passed++;
+    } else {
+      acc.failed++;
+    }
+
+    return acc;
+  },
+  { passed: 0, failed: 0 },
+);
+
+console.log(result25);
